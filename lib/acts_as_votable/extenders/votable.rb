@@ -12,7 +12,7 @@ module ActsAsVotable
         include ActsAsVotable::Votable
 
         class_eval do
-          def votable_options
+          def self.votable_options
             votable_options.with_indifferent_access
           end
           
