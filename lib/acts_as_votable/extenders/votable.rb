@@ -13,7 +13,7 @@ module ActsAsVotable
 
         class_eval do
           def votable_options
-            options
+            options.with_indifferent_access
           end
           
           def self.votable?
