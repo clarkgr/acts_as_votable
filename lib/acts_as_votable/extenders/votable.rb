@@ -7,11 +7,15 @@ module ActsAsVotable
         false
       end
 
-      def acts_as_votable
+      def acts_as_votable(options = {})
         require 'acts_as_votable/votable'
         include ActsAsVotable::Votable
 
         class_eval do
+          def votable_options
+            options
+          end
+          
           def self.votable?
             true
           end
