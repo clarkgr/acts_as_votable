@@ -81,14 +81,10 @@ module ActsAsVotable
         :vote_scope => options[:vote_scope],
         :voter_type => options[:voter].class.name
       }).order("created_at DESC")
-      
-      logger.debug ">>>>>>#{votable_options}"
-      
+            
       ttl = votable_options[:duration] && votable_options[:duration][options[:vote_scope]]
-      logger.debug ">>>>>>#{ttl}"
       ttl = votable_options[:duration] && votable_options[:duration][:default] unless ttl
-      logger.debug ">>>>>>#{ttl}"
-      _votes_ = _votes_.where("created_at > #{ttl.ago}") if ttl && ttl.respond_to?(:ago)
+      _votes_ = _votes_.where(["created_at > ?", ttl.ago]) if ttl && ttl.respond_to?(:ago)
 
       if _votes_.count == 0 or options[:duplicate]
         # this voter has never voted
