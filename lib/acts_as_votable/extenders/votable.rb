@@ -12,9 +12,10 @@ module ActsAsVotable
         include ActsAsVotable::Votable
 
         class_eval do
-          def votable_options
-            opts.with_indifferent_access
-          end
+          
+          class_attribute :votable_options
+          
+          self.votable_options = opts
           
           def self.votable?
             true
